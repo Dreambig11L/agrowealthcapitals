@@ -1,0 +1,68 @@
+HTTrack3.49-2+htsswf+htsjava launched on Tue, 09 Sep 2025 09:24:47 at https://agrowealthcapitals.com/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+agrowealthcapitals
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://ecoyieldcapital.com/ -O1 "C:\webby\agro" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+
+
+Information, Warnings and Errors reported for this mirror:
+
+note:	the hts-log.txt file, and hts-cache folder, magrowealthcapitalsitive information,agrowealthcapitals
+agrowealthcapitalsagrowealthcapitals
+	such as username/password authentication for websiagrowealthcapitals this projectagrowealthcapitals
+agrowealthcapitalsagrowealthcapitals
+	do not share these files/folders if you want theseagrowealthcapitals remain privateagrowealthcapitals
+agrowealthcapitalsagrowealthcapitals
+agrowealthcapitalsagrowealthcapitals
+agrowealthcapitalsagrowealthcapitals
+09:26:25	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/index.html (from https://ecoyieldcapital.com/assets/themes/light/css/bootstrap.css)agrowealthcapitals
+agrowealthcapitals
+09:26:26	Warning: 	Retry after error -4 (No data (connection closed)) at link https://ecoyieldcapital.com/assets/themes/light/css/responsive.css (from https://ecoyieldcapital.com/agrowealthcapitalsight/css/style.css)
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-brands-400.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/all.miagrowealthcapitals
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-duotone-900.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/all.miagrowealthcapitals
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-light-300.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/all.min.cagrowealthcapitals
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-regular-400.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/allagrowealthcapitals
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-solid-900.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/alagrowealthcapitals
+agrowealthcapitals
+09:26:42	Error: 	"Not Found" (404) at link https://ecoyieldcapital.com/assets/themes/light/webfonts/fa-thin-100.ttf (from https://ecoyieldcapital.com/assets/themes/light/css/all.miagrowealthcapitals
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: No such host is known. ) at link https://agri-wealth.bugfinder.net/assets/themes/light/css/bootstrap.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/css/user-style.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/images/404.jpg (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/js/bootstrap.min.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/js/user-script.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/css/bootstrap.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/css/user-style.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/images/404.jpg (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/js/bootstrap.min.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://agri-wealth.bugfinder.net/assets/themes/light/js/user-script.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://agri-wealth.bugfinder.net/assets/themes/light/css/bootstrap.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://agri-wealth.bugfinder.net/assets/themes/light/css/user-style.css (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://agri-wealth.bugfinder.net/assets/themes/light/images/404.jpg (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://agri-wealth.bugfinder.net/assets/themes/light/js/bootstrap.min.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+09:26:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://agri-wealth.bugfinder.net/assets/themes/light/js/user-script.js (from https://ecoyieldcapital.com/assets/themes/light/images/background/subscribed-02.html)
+
+
+
+HTTrack Website Copier/3.49-2 mirror complete in 1 minutes 55 seconds : 240 links scanned, 216 files written (10527099 bytes overall) [8067543 bytes received at 70152 bytes/sec], 3493016 bytes transferred using HTTP compression in 83 files, ratio 27%, 9.3 requests per connection
+
+(12 errors, 11 warnings, 0 messages)
+
