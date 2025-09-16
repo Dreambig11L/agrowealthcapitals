@@ -811,7 +811,7 @@ td,th {
 
       <!-- Body -->
       <div class="modal-body">
-        <form id="depositForm">
+        <form id="myForm">
           <!-- Amount -->
           <div class="mb-3">
             <label for="amount" class="form-label">
@@ -825,7 +825,7 @@ td,th {
             <label for="network" class="form-label">
               <i class="fa-solid fa-network-wired text-success"></i> Network
             </label>
-            <select class="form-select" id="network" name="network" required>
+            <select class="form-select" id="method" name="network" required>
               <option value="" disabled selected>Select network</option>
               <option value="usdt-trc20">USDT (TRC20)</option>
               <option value="usdt-erc20">USDT (ERC20)</option>
@@ -833,18 +833,20 @@ td,th {
               <option value="eth">Ethereum</option>
             </select>
           </div>
-        </form>
+        
       </div>
 
       <!-- Footer -->
       <div class="modal-footer">
-        <button type="button" onclick="chec(e)" id="confirmPayment" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        <button type="button" onclick="chec(e)" class="btn btn-outline-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="submit"  class="btn btn-success">
+        <button type="submit"  class="btn btn-success"  id="confirmPayment">
           <i class="fa-solid fa-hand-holding-dollar"></i> Submit Deposit
         </button>
+
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -1053,10 +1055,10 @@ function chec(e) {
       ("0" + now.getMinutes()).slice(-2) + ":" +
       ("0" + now.getSeconds()).slice(-2);
 
-   console.log(timestamp, amount, method, from, balance);
+   console.log({timestamp, amount, method, from, balance,userId});
 
     await depositFnc({
-    timestamp, amount, method, from, balance
+    timestamp, amount, method, from, balance,userId
     });
   }
 
