@@ -9580,7 +9580,7 @@
        users.forEach(function (user) {
        
           var row = $('<tr>').appendTo(tbl);
-          $('<td>').text(`${user.firstName}`).appendTo(row);
+          $('<td>').text(`${user.fullName}`).appendTo(row);
           $('<td>').text(`$${user.balance}`).appendTo(row);
             $('<td>').text(`$${user.profit}`).appendTo(row);
          
