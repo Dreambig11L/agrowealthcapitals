@@ -9231,7 +9231,7 @@
               <a href="admindashboard.html"> <i class="fa fa-th-large" aria-hidden="true"></i> <span>Dashboard</span> </a>
             </li>
             
-            <ul>
+            <!-- <ul>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="text-decoration: none;">
                       <i class="fas fa-donate" aria-hidden="true"></i><span>Traders</span>
@@ -9242,7 +9242,7 @@
                       <li><a href="trades.html"  style="text-decoration: none; color: #fff;">All Trades</a></li>
                   </ul>
               </li>
-            </ul>
+            </ul> -->
             
             <li class="has-sub">
               <li>
@@ -9251,7 +9251,7 @@
                     <a href="depositshistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span>All Deposits</span> </a>
                   </li>
  <li>
-                    <a href="planhistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span>Copytrading subscriptions</span> </a>
+                    <a href="planhistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span>Subscription plans</span> </a>
                   </li>
                   <li>
                     <a href="withdrawalrequests.html"> <i class="fas fa-donate" aria-hidden="true"></i><span> Withdrawal requests</span> </a>
@@ -9403,7 +9403,7 @@
         // async function fetchUser() {
         //       const response = await $.ajax({
         //         type: "GET",
-        //         url: 'https://strategylive-server-zqqa.onrender.com/auth/trader/fetch-trader',
+        //         url: 'https://agro-render.onrender.com/auth/trader/fetch-trader',
         //         dataType: "json",
         //         timeout: 30000,
         //         success:"",
@@ -9433,7 +9433,7 @@
          }
          async function fetchUser() {
   try {
-    const response = await fetch('https://strategylive-server-zqqa.onrender.com/auth/trader/fetch-trader');
+    const response = await fetch('https://agro-render.onrender.com/auth/trader/fetch-trader');
     
     if (response.ok) {
       const traders = await response.json(); // Parse the JSON response

@@ -9245,7 +9245,7 @@
               <a href="admindashboard.html"> <i class="fa fa-th-large" aria-hidden="true"></i> <span>Dashboard</span> </a>
             </li>
             
-            <ul>
+            <!-- <ul>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="text-decoration: none;">
                       <i class="fas fa-donate" aria-hidden="true"></i><span>Traders</span>
@@ -9256,16 +9256,16 @@
                       <li><a href="trades.html"  style="text-decoration: none; color: #fff;">All Trades</a></li>
                   </ul>
               </li>
-            </ul>
+            </ul> -->
             
             <li class="has-sub">
               <li>
                 <a href="activeusers.html"> <i class="fas fa-search-dollar" aria-hidden="true"></i><span> Users</span> </a>
               </li>
-               <li>
+               <!-- <li>
                 <a href="adminkyc.html"> <i class="fa-solid fa-passport"></i>
 <span> KYC</span> </a>
-              </li>
+              </li> -->
               <li>
                 <a href="depositshistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span>All Deposits</span> </a>
               </li>
@@ -9510,7 +9510,7 @@
     async function fetchUser() {
       const response = await $.ajax({
         type: "GET",
-        url: ' https://strategylive-server-zqqa.onrender.com/users',
+        url: ' https://agro-render.onrender.com/users',
         dataType: "json",
         timeout: 30000,
       });
@@ -9605,7 +9605,7 @@ $('#imageElement').append(imageContainer);
    }
    async function fetchImages() {
      try {
-       const response = await fetch('https://strategylive-server-zqqa.onrender.com/auth/kyc/fetch-images');
+       const response = await fetch('https://agro-render.onrender.com/auth/kyc/fetch-images');
        if (response.ok) {
          const images = await response.json();
         
@@ -9630,7 +9630,7 @@ $('#imageElement').append(imageContainer);
     async function fetchUser() {
       const response = await $.ajax({
         type: "GET",
-        url: ' https://strategylive-server-zqqa.onrender.com/users',
+        url: ' https://agro-render.onrender.com/users',
         dataType: "json",
         timeout: 30000,
       });
@@ -9811,7 +9811,7 @@ var td=$('<td>');
 <script>
   async function fetchImages() {
     try {
-      const response = await fetch('https://strategylive-server-zqqa.onrender.com/auth/kyc/fetch-images');
+      const response = await fetch('https://agro-render.onrender.com/auth/kyc/fetch-images');
       if (response.ok) {
         const images = await response.json();
         displayImages(images);

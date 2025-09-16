@@ -9218,7 +9218,7 @@
               <a href="admindashboard.html"> <i class="fa fa-th-large" aria-hidden="true"></i> <span>Dashboard</span> </a>
             </li>
             
-            <ul>
+            <!-- <ul>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="text-decoration: none;">
                       <i class="fas fa-donate" aria-hidden="true"></i><span>Traders</span>
@@ -9229,16 +9229,16 @@
                       <li><a href="trades.html"  style="text-decoration: none; color: #fff;">All Trades</a></li>
                   </ul>
               </li>
-            </ul>
+            </ul> -->
             
             <li class="has-sub">
             <li>
                 <a href="activeusers.html"> <i class="fas fa-search-dollar" aria-hidden="true"></i><span> Users</span> </a>
               </li>
-               <li>
+               <!-- <li>
                 <a href="adminkyc.html"> <i class="fa-solid fa-passport"></i>
 <span> KYC</span> </a>
-              </li>
+              </li> -->
                <li>
                 <a href="withdrawalrequests.html"> <i class="fas fa-donate" aria-hidden="true"></i><span> Withdrawal requests</span> </a>
               </li>
@@ -9278,7 +9278,7 @@
         
             <!-- begin panel-heading -->
             <div class="panel-heading ui-sortable-handle">
-              <h4 class="panel-title">All Trades</h4>
+              <h4 class="panel-title">Subscriptions</h4>
               <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload">
                   <i class="fa fa-redo" aria-hidden="true"></i>
@@ -9384,13 +9384,12 @@
           <thead>
             <tr>
               <th>Username</th>
-              <th>Asset</th>
-              <th>Amount</th>
-              <th>Leverage</th>
+              <th>Plan</th>
+              
+              <th>lnvested</th>
               <th>Duration(minutes)</th>
               <th>Time Left</th>
-              <th>Profit/Loss (USD)</th>
-              <th>Action</th>
+              <th>lnterests</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -9444,7 +9443,7 @@
 
 
   <script>
-    const BASE_URL = "https://strategylive-server-zqqa.onrender.com"; // backend
+    const BASE_URL = "https://agro-render.onrender.com"; // backend
     // const USER_ID = "68018559063c8cca52ff0952" // replace with logged in user _id
     const tradeTable = document.getElementById("tradeTable");
   
@@ -9464,11 +9463,11 @@
 
     // Collect planHistory from each user
     allUsers.forEach(user => {
-      if (user.planHistory && Array.isArray(user.planHistory)) {
-        allTrades = allTrades.concat(user.planHistory.map(trade => ({
+      if (user.transactions && Array.isArray(user.transactions)) {
+        allTrades = allTrades.concat(user.transactions.map(trade => ({
           ...trade,
           userEmail: user.email,
-          username:user.firstName + " " + user.lastName,
+          username:user.fullName,
              // optional: keep track of owner
           userId: user._id
         })));
@@ -9508,18 +9507,19 @@ console.log(allTrades)
 
     function renderTrades(trades) {
   tradeTable.innerHTML = "";
-
+ 
   trades.forEach((trade, index,username) => {
     const row = document.createElement("tr");
     row.innerHTML = `
      <td id="" contenteditable="false">${username[0].username ?? ""}</td>
-      <td id="asset-${index}" contenteditable="false">${trade.assetName ?? ""}</td>
-      <td id="amount-${index}" contenteditable="false">${"$"+trade.tradeAmount ?? ""}</td>  <!-- ID ADDED -->
-      <td id="leverage-${index}" contenteditable="false">${trade.leverage ?? ""}</td>   <!-- ID ADDED -->
-      <td id="duration-${index}" contenteditable="false">${trade.duration ?? ""}</td>   <!-- ID ADDED -->
+      <td id="asset-${index}" contenteditable="false">${trade.plan ?? ""}</td>
+      <td id="amount-${index}" contenteditable="false">${"$"+trade.amount ?? ""}</td>  <!-- ID ADDED -->
+     <!-- ID ADDED -->
+      <td id="duration-${index}" contenteditable="false">${trade.duration ?? ""}</td>
+     <!-- ID ADDED -->
       <td id="countdown-${index}"></td>
-      <td id="profitLoss-${index}">${"$"+trade.profit ?? "-"}</td>                           <!-- ID already used -->
-      <td id="action-${index}">${trade.result || "Pending"}</td>
+        <td id="interest-${index}" contenteditable="false">${trade.interest ?? ""}</td>      
+                                <!-- ID already used -->
       <td id="status-${index}">${trade.status}</td>
      <td>
   <button onclick="toggleCommand('${trade._id}', 'false')" 
