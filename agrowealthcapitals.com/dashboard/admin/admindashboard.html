@@ -10384,7 +10384,7 @@
       const userInfo = await fetchUserInfo();
   
 console.log(userInfo)
-      $('#username').html(userInfo.firstName + " " + userInfo.lastName)
+      $('#username').html(userInfo.fullName )
       $('#email').html(userInfo.email)
      
     });
