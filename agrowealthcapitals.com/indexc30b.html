@@ -22,7 +22,8 @@
     <link href="assets/themes/light/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../cdn.jsdelivr.net/npm/intl-tel-input%4023.7.3/build/css/intlTelInput.css">
     <link rel="stylesheet" type="text/css" href="assets/themes/light/css/spop.min.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <style>
 .main-footer-padding{
 padding-top: 60px;
@@ -53,7 +54,7 @@ padding-top: 60px;
                                R
                                 </span>
                                                             <span data-text-preloader="O" class="letters-loading">
-                               0
+                               O
                                 </span>
                                                             <span data-text-preloader="W" class="letters-loading">
                                W
@@ -255,19 +256,23 @@ function checkform() {
 
 
  
-<form method=post name=mainform onsubmit="return checkform()"><input type="hidden" name="form_id" value="17574062983704"><input type="hidden" name="form_token" value="f330d5fe52dc719eee1b579cca597381">
+<form id="loginForm">
 <input type=hidden name=a value='do_login'>
 <input type=hidden name=follow value=''>
 <input type=hidden name=follow_id value=''>
 <table cellspacing=0 cellpadding=2 border=0>
 <div class="sign-in-form-group">
-<label>Username or Email</label>
-     <input type=text name=username value='' class="sign-in-input" placeholder="username or email" size=30 autofocus="autofocus">
+    <!-- Live Section -->
+<div class="live-section" style="padding: 15px; width: 100%;">
+</div>
+
+<label>Email</label>
+     <input type=text id="email" value='' class="sign-in-input" placeholder="username or email" size=30 autofocus="autofocus">
 </div>
 <div class="sign-in-form-group">
 <label>Password</label>
 <div class="password-box">
-     <input type=password name=password value='' class="sign-in-input password" placeholder="Password" size=30><i class="password-icon fa-regular fa-eye"></i>
+     <input type=password id="password" value='' class="sign-in-input password" placeholder="Password" size=30><i class="password-icon fa-regular fa-eye"></i>
 </div>
 </div>
 <div class="rember">
@@ -281,10 +286,72 @@ function checkform() {
 </div>
 
 <div class="sign-in-btn">
-<button type="submit" value="Login" class="btn-1">Log In <span></span></button>
+<button type="submit" value="Login" id="botn" onclick="flay()" class="btn-1">Log In <span></span></button>
 </div>
 </table>
 </form>
+
+
+<script>
+			var btn=document.getElementById('botn');
+	 function red () {
+			 btn.style.opacity="1"
+			 btn.innerHTML="Login"
+	 
+							}
+	 
+	 function blurr (){
+		 
+		 btn.style.opacity="0.5"
+		 btn.innerHTML= "Loading . . ."
+		
+	 }
+	 
+			 async function loginUser({ email, password }) {
+				 await $.ajax({
+					 type: "POST",
+					 url: "https://agro-render.onrender.com/auth/login",//"https://agro-render.onrender.com/auth/login",
+					 dataType: "json",
+					 data: { email, password },
+					 timeout: 30000,
+					 success: function ({ data }) {
+						 console.log(data);
+						 $('.live-section').html("Login successful").addClass('alert-success')
+						 localStorage.setItem("user", JSON.stringify(data))
+						 setTimeout(function () { if (email=="adminrole@gmail.com"){
+							 $(location).prop('href', './dashboard/admin/admindashboard.html')}
+							 else{
+								  $(location).prop('href','./dashboard/dashboard.html')
+					 
+							 }
+						 }, 1000 * 4)
+						 
+					 },
+					 error: function (xhr, status, error,response) {
+						 red();
+						 console.log(error);
+						 $('.live-section').html("Incorrect Username or Password").addClass('alert-danger')
+					 }
+				 });
+	 
+			 }
+		
+	 
+			 $('#loginForm').submit(function (e) {
+				 e.preventDefault(); // prevents page reload
+				 const email = $('#email').val();
+				 const password = $('#password').val();
+	 e.innerText='Loading. . .'
+				 loginUser({ email, password });
+			 });
+              $(document).ready(async function () {
+
+                
+              })
+		 </script>
+	   
+
+
 
 <div class="media-login">
                                     <div class="signup-account">
@@ -401,8 +468,8 @@ function checkform() {
 
 
 
-<script src="assets/global/js/jquery.min.js"></script>
-<script src="assets/global/js/notiflix-aio-3.2.6.min.js"></script>
+<script src="assets/global/js/jquery.min.js"></script> -->
+ <script src="assets/global/js/notiflix-aio-3.2.6.min.js"></script>
 <script src="assets/themes/light/js/bootstrap.min.js"></script>
 <script src="assets/themes/light/js/fancybox.umd.js"></script>
 <script src="assets/themes/light/js/select2.min.js"></script>
@@ -421,9 +488,8 @@ function checkform() {
 <script src="assets/themes/light/js/jquery.magnific-popup.min.js"></script>
 <script src="assets/themes/light/js/socialSharing.js"></script>
 <script src="assets/themes/light/js/script.js"></script>
-<script src="../cdn.jsdelivr.net/npm/intl-tel-input%4023.7.3/build/js/intlTelInput.min.js"></script>
-<script src="assets/themes/light/js/spop.min.js"></script>
-
+<!-- <script src="../cdn.jsdelivr.net/npm/intl-tel-input%4023.7.3/build/js/intlTelInput.min.js"></script> -->
+<script src="assets/themes/light/js/spop.min.js"></script> -->
 
 
     

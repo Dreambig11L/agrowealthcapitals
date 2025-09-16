@@ -22,7 +22,8 @@
     <link href="assets/themes/light/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../cdn.jsdelivr.net/npm/intl-tel-input%4023.7.3/build/css/intlTelInput.css">
     <link rel="stylesheet" type="text/css" href="assets/themes/light/css/spop.min.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <style>
 .main-footer-padding{
 padding-top: 60px;
@@ -53,7 +54,7 @@ padding-top: 60px;
                                R
                                 </span>
                                                             <span data-text-preloader="O" class="letters-loading">
-                               0
+                               O
                                 </span>
                                                             <span data-text-preloader="W" class="letters-loading">
                                W
@@ -332,16 +333,19 @@ padding-top: 60px;
 
  
 
-<form method=post onsubmit="return checkform()" name="regform"><input type="hidden" name="form_id" value="17574062999630"><input type="hidden" name="form_token" value="4d6919ffc6fb3f10c996bdadd8cd1f23">
+<form method=post id="signupForm" name="regform"><input type="hidden" name="form_id" value="17574062999630"><input type="hidden" name="form_token" value="4d6919ffc6fb3f10c996bdadd8cd1f23">
 <input type=hidden name=a value="signup">
 <input type=hidden name=action value="signup">
 <table cellspacing=0 cellpadding=2 border=0>
+    <div class="live-section" style="padding: 15px; width: 100%;">
+</div>
+
 <div class="sign-in-form-group">
 <label>Your Full Name</label>
 
 
 
-     <input type=text id="fullname" value="" class="sign-in-input" size=30 placeholder="Enter your fullName">
+     <input type=text id="fullName" value="" class="sign-in-input" size=30 placeholder="Enter your fullName">
 </div>
 <div class="sign-in-form-group">
 <label>Your Username</label>
@@ -357,19 +361,20 @@ padding-top: 60px;
 </div>
 <div class="sign-in-form-group">
 <label>Your Bitcoin Payment Wallet ID</label>
-     <input type=text class="sign-in-input" size=30 name="pay_account[1000][Wallet ID]" value="">
+     <input type=text class="sign-in-input" id="bitcoinId"
+      value="">
 </div>
 <div class="sign-in-form-group">
 <label>Your USDT Payment Wallet ID</label>
-     <input type=text class="sign-in-input" size=30 name="pay_account[1001][Wallet ID]" value="">
+     <input type=text class="sign-in-input" id="usdtId" size=30 name="pay_account[1001][Wallet ID]" value="">
 </div>
 <div class="sign-in-form-group">
 <label>Your E-mail Address</label>
-     <input type=text name=email value="" class="sign-in-input" size=30 placeholder="Enter your email">
+     <input type=text id="email" value="" class="sign-in-input" size=30 placeholder="Enter your email">
 </div>
 <div class="sign-in-form-group">
 <label>Retype Your E-mail</label>
-     <input type=text name=email1 value="" class="sign-in-input" size=30 placeholder="Enter your re-email">
+     <input type=text id="email1" value="" class="sign-in-input" size=30 placeholder="Enter your re-email">
 </div>
 <div class="sign-in-form-group">
 <label>Secret question</label>
@@ -387,7 +392,7 @@ padding-top: 60px;
      <input type=checkbox name=agree value=1  > I agree with <a href="indexa972.html?a=rules">Terms and conditions</a>
 </div>
 <div class="sign-in-btn">
-<button type="submit" value="Register" class="btn-1">Create Account <span></span></button>
+<button id="registerBtn" value="Register" class="btn-1">Create Account <span></span></button>
 </div>
 
 </table>
@@ -505,9 +510,123 @@ padding-top: 60px;
 </div>
 <!-- Scroll to top end -->
 
+<!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+ <script>
+	var btn=document.getElementById('registerBtn');
+   function red () {
+		   btn.style.opacity="1"
+		   btn.innerHTML="Register"
+   
+						  }
+						  function topFunction() {
+document.body.scrollTop = 0; // For Safari
+document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+   
+   function blurr (){
+	   
+	   btn.style.opacity="0.5"
+	   btn.innerHTML= "Loading . . ."
+	  
+   }
+   
+		   async function registerUser(values) {
+			   await $.ajax({
+				   type: "POST",
+				   url: " https://agro-render.onrender.com/auth/register",
+				   dataType: "json",
+				   data: { ...values },
+				   timeout: 30000,
+				   success: function (data) {
+                    Swal.fire("Success", "Account created successfully!", "success")
 
+                        console.log(data);
+                        if (data.otp && data.otpExpiration) {
+                // Store OTP and expiration time for later use
+                const otp = data.otp; // The OTP
+                const otpExpiration = data.otpExpiration; // OTP expiration time
+
+                localStorage.setItem("otp",otp)
+                localStorage.setItem("otpExpiration",otpExpiration)
+                // You can now use otp and otpExpiration in your frontend as needed.
+                console.log("OTP:", otp); // For debugging, or store it for OTP verification
+                console.log("OTP Expiration:", new Date(otpExpiration)); // Show expiration time in readable format
+
+                // Example of using the OTP to autofill an input or validate
+                // document.getElementById('otp-input').value = otp;
+            }
+
+                    //    $('.live-section').html("Account was successfully created").addClass('alert-success')
+                    Swal.fire({
+                                        icon: 'success',
+                                        text: 'Registeration successful!',
+                                        confirmButtonText: 'OK',
+                                        confirmButtonColor: '#3a64d1',
+                                        allowOutsideClick: true,
+                                        allowEscapeKey: true,
+                                    });
+                       setTimeout(function () {
+                           $(location).prop('href', './indexc30b.html.html')
+                       }, 1000)
+   
+                   },
+				   error: function (xhr, status, error) {
+					   red();
+					   console.log(error);
+					   $('.live-section').html("Email already taken.").addClass('alert-danger')
+				   }
+			   });
+   
+		   }
+   
+   
+		   $('#signupForm').submit(function (e) {
+			   e.preventDefault(); // prevents page reload
+			   
+			   blurr();
+              // stop form from submitting immediately
+
+    // Get values
+   const confirmPassword = document.getElementById("confirmPassword").value.trim();
+  const confirmEmail = document.getElementById("email1").value.trim();
+
+			   const fullName = $('#fullName').val();
+
+			   const username = $('#username').val();
+			   const email = $('#email').val();
+			   const password = $('#password').val();
+               const usdtId= $('#usdtId').val();
+               const bitcoinId= $('#bitcoinId').val();
+			  
+			   localStorage.setItem("password",password)
+			   localStorage.setItem("email",email)
+			 
+			   localStorage.setItem("fullName",fullName)
+			   
+			   console.log(email,password,fullName,username,usdtId,bitcoinId);
+
+               if (password !== confirmPassword) {
+    Swal.fire("Error", "Passwords do not match!", "error");
+    return;
+}
+if (email !== confirmEmail) {
+    Swal.fire("Error", "Emails do not match!", "error");
+    return;
+}
+
+			   registerUser({ email,password,fullName,username,usdtId,bitcoinId });
+		   });
+
+		 topFunction();
+
+   
+	   </script>
 <script src="assets/global/js/jquery.min.js"></script>
 <script src="assets/global/js/notiflix-aio-3.2.6.min.js"></script>
 <script src="assets/themes/light/js/bootstrap.min.js"></script>
