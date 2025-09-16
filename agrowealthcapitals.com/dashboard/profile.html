@@ -35,6 +35,10 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <link type="text/css" rel="stylesheet" charset="UTF-8" href="./dashboard_files/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="./dashboard_files/m=el_main"></script><style>@keyframes slide-in-one-tap {
   from {
@@ -526,8 +530,8 @@ td,th {
 </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link " href="./plans.html">
-            <i class="fa-brands fa-slack"></i>
+        <a class="nav-link " href="./add_funds.html">
+            <i class="fa-solid fa-circle-arrow-down"></i> 
         </a>
     </li>
     <li class="nav-item">
@@ -570,34 +574,34 @@ td,th {
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="./support.html">
+            <a class="nav-link " href="../index15a0.html.html">
                 <i class="fas fa-table"></i>
                 <span>Support</span>
             </a>
         </li>
-        <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link collapsed " href="./transactions.html">
                 <i class="fas fa-chart-line"></i><span>Transaction</span>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link " href="./referrals.html">
                 <i class="fas fa-users"></i>
                 <span>Referral</span>
             </a>
         </li>
-        <li class="nav-item ">
+         <!-- <li class="nav-item ">
             <a class="nav-link " href="./referrals.html">
                 <i class="fas fa-gift"></i>
                 <span>Referral Links</span>
             </a>
-        </li>
-        <li class="nav-item ">
+        </li> -->
+          <!-- <li class="nav-item ">
             <a class="nav-link " href="./security.html">
                 <i class="fas fa-user-shield"></i>
                 <span>2 FA Security</span>
             </a>
-        </li>
+        </li> --> 
     </ul>
 </aside>
 
@@ -695,42 +699,66 @@ function checkform() {
 <table cellspacing="0" cellpadding="2" border="0" class="table table-striped table-bordered">
 <tbody><tr>
  <td>Account Name:</td>
- <td>pegassy</td>
+ <td id="username2"></td>
 </tr><tr>
  <td>Registration date:</td>
- <td>Sep-9-2025 04:30:29 AM</td>
+ <td id="reg_date"></td>
 </tr><tr>
  <td>Your Full Name:</td>
- <td><input type="text" name="fullname" value="falsepegasus" class="form-control" size="30">
+ <td><input type="text" id="fullName2" value="" class="form-control" size="30">
 </td></tr>
 
-<tr>
- <td>New Password:</td>
- <td><input type="password" name="password" value="" class="form-control" size="30"></td>
-</tr><tr>
- <td>Retype Password:</td>
- <td><input type="password" name="password2" value="" class="form-control" size="30"></td>
-</tr>
+
 <tr>
  <td>Your Bitcoin Payment Wallet ID:</td>
- <td><input type="text" class="form-control" size="30" name="pay_account[1000][Wallet ID]" value="132465"></td>
+ <td><input type="text" class="form-control" size="30" id="bitcoinId" ></td>
 </tr>
 <tr>
  <td>Your USDT Payment Wallet ID:</td>
- <td><input type="text" class="form-control" size="30" name="pay_account[1001][Wallet ID]" value="132465"></td>
+ <td><input type="text" class="form-control" size="30" id="usdtId" ></td>
 </tr>
 <tr>
  <td>Your E-mail address:</td>
- <td><input type="text" name="email" value="falsepegasus@gmail.com" class="form-control" size="30"></td>
+ <td><input type="text" id="email" value="" class="form-control" size="30"></td>
 </tr>
 
 
 <tr>
  <td>&nbsp;</td>
- <td><input type="submit" value="Update" class="sbmt btn-2"></td>
+ <td><input type="button" id="personalDataBtn" value="Update" class="sbmt btn-2"></td>
 </tr></tbody></table>
 </form>
-</div></div>
+</div>
+
+<div class="table-responsive">
+
+    <form action="">
+
+<table>
+    <tbody>
+        <tr>
+ <td>New Password:</td>
+ <td><input type="password" id="password" value="" class="form-control" size="30"></td>
+</tr><tr>
+ <td>Retype Password:</td>
+ <td><input type="password" id="confirmpassword" value="" class="form-control" size="30"></td>
+</tr>
+<tr>
+    <td><button class="sbmt btn-2" id="savePasswordBtn">save</button></td>
+    
+</tr>
+    </tbody>
+</table>
+
+
+    </form>
+</div>
+
+</div>
+
+
+
+
                             </div>
                         </div>
 
@@ -790,19 +818,78 @@ function checkform() {
     return response.data;
   }
   
+  var passwordBtn=$("#savePasswordBtn")
+function loadIt(){
+passwordBtn.innerHTML="Loading..."
+
+}
+
+
+
+$('#savePasswordBtn').click(async function (e) {
+e.preventDefault();
+
+var confirmPassword = $('#confirmpassword').val()
+var password = $('#password').val()
+
+console.log(password,confirmPassword);
+if (password != confirmPassword) {
+// $('.password-live-section').addClass('alert-danger').text("Passwords do not match")
+alert("passwords do not match")
+} else {
+  loadIt()
+// $('.password-live-section').hide()
+await resetPassword({ password })
+}
+
+})
+
+
+async function resetPassword({ password }) {
+  const userInfo = await fetchUserInfo();
+
+const response = await $.ajax({
+    type: "PUT",
+    url: `  https://agro-render.onrender.com/auth/${userInfo._id}/reset-password`,
+    dataType: "json",
+    data: { password },
+    timeout: 30000,
+    success: function () {
+        swal.fire({
+            title: "Password Update",
+            text: "Your password has been successfully reset.",
+            type: "success",
+            timer: 3000
+        });
+        setTimeout(function () {
+            location.href = "./dashboard.html";
+        }, 3000);
+    }
+});
+
+console.log(response);
+return response.data;
+}
+
+
+
+
+
+
   $(document).ready(async function () {
     const userInfo = await fetchUserInfo();
-   $('#emaill').val(userInfo.email)
-    $('#fullName').val(userInfo.fullName)
-    $('#username').val(userInfo.username)
-    $('#mobile').val(userInfo.mobile)
+   $('#email').val(userInfo.email)
+    $('#fullName2').val(userInfo.fullName)
+    $('#username2').html(userInfo.username)
+    $('#bitcoinId').val(userInfo.bitcoinId)
+   $('#usdtId').val(userInfo.usdtId)
    
-    $('#country').val(userInfo.country)
-    $('#referred_by').val(userInfo.referredBy)
-    $('#reg_date').val(userInfo.reg_date)
+    // $('#country').val(userInfo.country)
+    // $('#referred_by').val(userInfo.referredBy)
+    $('#reg_date').val(userInfo.registerationDate)
 
    
-    $('#title').html(userInfo.fullName + " " + userInfo.username)
+    
     var lastseen=new Date()
     localStorage.setItem("last_seen",lastseen)                
    $('#last_access').val(localStorage.getItem("last_seen"))
@@ -811,20 +898,20 @@ function checkform() {
    
   });
   
-  async function updateProfile({ fullName, username, email }) {
-    console.log(fullName, username, email);
+  async function updateProfile({ fullName, username, email,usdtId,bitcoinId }) {
+    console.log(fullName, username, email,usdtId,bitcoinId);
    const user=localStorage.getItem("user")
    const parseUser=JSON.parse(user)
     const response = await $.ajax({
       type: "PUT",
       url: ` https://agro-render.onrender.com/users/${parseUser._id}/profile/update`,
       dataType: "json",
-      data: { fullName, username, email },
+      data: { fullName, username, email,usdtId,bitcoinId },
       timeout: 30000,
       success: function (data) {
                 localStorage.removeItem("ct")
                   console.log(data)
-                  swal({
+                  swal.fire({
                                        title: "Update",
                                        text: "Profile  successfully updated",
                                        type:"success",
@@ -841,11 +928,12 @@ function checkform() {
   
   $('#personalDataBtn').click(async function (e) {
     e.preventDefault();
-    var fullName = $('#fullName').val()
-    var username = $('#username').val()
+    var fullName = $('#fullName2').val()
+    var username = $('#username2').val()
     var email = $('#email').val()
-  
-    await updateProfile({ fullName, username, email })
+  var usdtId=$('#usdtId').val()
+  var bitcoinId=$('#bitcoinId').val()
+    await updateProfile({ fullName, username, email,usdtId,bitcoinId})
   })
   
   

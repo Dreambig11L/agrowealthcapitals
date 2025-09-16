@@ -518,115 +518,108 @@ padding-top: 60px;
 
 
  <script>
-	var btn=document.getElementById('registerBtn');
-   function red () {
-		   btn.style.opacity="1"
-		   btn.innerHTML="Register"
-   
-						  }
-						  function topFunction() {
-document.body.scrollTop = 0; // For Safari
-document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-   
-   function blurr (){
-	   
-	   btn.style.opacity="0.5"
-	   btn.innerHTML= "Loading . . ."
-	  
-   }
-   
-		   async function registerUser(values) {
-			   await $.ajax({
-				   type: "POST",
-				   url: " https://agro-render.onrender.com/auth/register",
-				   dataType: "json",
-				   data: { ...values },
-				   timeout: 30000,
-				   success: function (data) {
-                    Swal.fire("Success", "Account created successfully!", "success")
+    var btn = document.getElementById('registerBtn');
 
-                        console.log(data);
-                        if (data.otp && data.otpExpiration) {
-                // Store OTP and expiration time for later use
-                const otp = data.otp; // The OTP
-                const otpExpiration = data.otpExpiration; // OTP expiration time
+    function red() {
+        btn.style.opacity = "1";
+        btn.innerHTML = "Register";
+    }
 
-                localStorage.setItem("otp",otp)
-                localStorage.setItem("otpExpiration",otpExpiration)
-                // You can now use otp and otpExpiration in your frontend as needed.
-                console.log("OTP:", otp); // For debugging, or store it for OTP verification
-                console.log("OTP Expiration:", new Date(otpExpiration)); // Show expiration time in readable format
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
 
-                // Example of using the OTP to autofill an input or validate
-                // document.getElementById('otp-input').value = otp;
+    function blurr() {
+        btn.style.opacity = "0.5";
+        btn.innerHTML = "Loading . . .";
+    }
+
+    // ✅ Extract referral code from URL
+    function getReferralCode() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("ref") || null;
+    }
+
+    async function registerUser(values) {
+        await $.ajax({
+            type: "POST",
+            url: "https://agro-render.onrender.com/auth/register",
+            dataType: "json",
+            data: { ...values },
+            timeout: 30000,
+            success: function (data) {
+                Swal.fire("Success", "Account created successfully!", "success");
+
+                console.log(data);
+                if (data.otp && data.otpExpiration) {
+                    // Store OTP and expiration time
+                    localStorage.setItem("otp", data.otp);
+                    localStorage.setItem("otpExpiration", data.otpExpiration);
+                    console.log("OTP:", data.otp);
+                    console.log("OTP Expiration:", new Date(data.otpExpiration));
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Registration successful!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3a64d1',
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
+
+                setTimeout(function () {
+                    $(location).prop('href', './indexc30b.html');
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                red();
+                console.log(error);
+                $('.live-section').html("Email already taken.").addClass('alert-danger');
             }
+        });
+    }
 
-                    //    $('.live-section').html("Account was successfully created").addClass('alert-success')
-                    Swal.fire({
-                                        icon: 'success',
-                                        text: 'Registeration successful!',
-                                        confirmButtonText: 'OK',
-                                        confirmButtonColor: '#3a64d1',
-                                        allowOutsideClick: true,
-                                        allowEscapeKey: true,
-                                    });
-                       setTimeout(function () {
-                           $(location).prop('href', './indexc30b.html')
-                       }, 1000)
-   
-                   },
-				   error: function (xhr, status, error) {
-					   red();
-					   console.log(error);
-					   $('.live-section').html("Email already taken.").addClass('alert-danger')
-				   }
-			   });
-   
-		   }
-   
-   
-		   $('#signupForm').submit(function (e) {
-			   e.preventDefault(); // prevents page reload
-			   
-			   blurr();
-              // stop form from submitting immediately
+    $('#signupForm').submit(function (e) {
+        e.preventDefault(); // prevents page reload
+        blurr();
 
-    // Get values
-   const confirmPassword = document.getElementById("confirmPassword").value.trim();
-  const confirmEmail = document.getElementById("email1").value.trim();
+        // ✅ Capture referral code from URL
+        const referralCode = getReferralCode();
 
-			   const fullName = $('#fullName').val();
+        // Get values
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+        const confirmEmail = document.getElementById("email1").value.trim();
+        const fullName = $('#fullName').val();
+        const username = $('#username').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const usdtId = $('#usdtId').val();
+        const bitcoinId = $('#bitcoinId').val();
 
-			   const username = $('#username').val();
-			   const email = $('#email').val();
-			   const password = $('#password').val();
-               const usdtId= $('#usdtId').val();
-               const bitcoinId= $('#bitcoinId').val();
-			  
-			   localStorage.setItem("password",password)
-			   localStorage.setItem("email",email)
-			 
-			   localStorage.setItem("fullName",fullName)
-			   
-			   console.log(email,password,fullName,username,usdtId,bitcoinId);
+        localStorage.setItem("password", password);
+        localStorage.setItem("email", email);
+        localStorage.setItem("fullName", fullName);
 
-               if (password !== confirmPassword) {
-    Swal.fire("Error", "Passwords do not match!", "error");
-    return;
-}
-if (email !== confirmEmail) {
-    Swal.fire("Error", "Emails do not match!", "error");
-    return;
-}
+        console.log(email, password, fullName, username, usdtId, bitcoinId, referralCode);
 
-			   registerUser({ email,password,fullName,username,usdtId,bitcoinId });
-		   });
+        if (password !== confirmPassword) {
+            Swal.fire("Error", "Passwords do not match!", "error");
+            return;
+        }
+        if (email !== confirmEmail) {
+            Swal.fire("Error", "Emails do not match!", "error");
+            return;
+        }
 
-		 topFunction();
+        // ✅ Send referralCode along with other data
+        registerUser({ email, password, fullName, username, usdtId, bitcoinId, referralCode });
+    });
 
-   
-	   </script>
+    topFunction();
+</script>
+
 <script src="assets/global/js/jquery.min.js"></script>
 <script src="assets/global/js/notiflix-aio-3.2.6.min.js"></script>
 <script src="assets/themes/light/js/bootstrap.min.js"></script>
