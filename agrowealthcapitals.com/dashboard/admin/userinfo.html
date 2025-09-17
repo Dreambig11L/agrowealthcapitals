@@ -1337,7 +1337,7 @@ async function updateProfile({ fullName, username, email, balance,profit,referal
     type: "PUT",
     url: `https://agro-render.onrender.com/users/${currentUser._id}/profile/update`,
     dataType: "json",
-    data: {ullName, username, email, balance,profit,referalBonus },
+    data: {fullName, username, email, balance,profit,referalBonus },
     timeout: 30000,
     success: function () {
       $('.live-section').addClass("alert-primary").text("Profile updated successfully")
