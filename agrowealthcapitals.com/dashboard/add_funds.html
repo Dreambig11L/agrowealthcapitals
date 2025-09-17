@@ -1036,7 +1036,7 @@ function chec(e) {
     setProcessing();
 
     let ct = localStorage.getItem("ct") || "";
-    const amount = localStorage.getItem("depositing");
+    const amount = $("#amount").val();
     const proofOfPayment = $("#proofOfPayment").val();
     const method = ct + $("#method").val();
 
