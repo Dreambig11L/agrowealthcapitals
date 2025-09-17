@@ -985,7 +985,7 @@ async function depositFnc(dataObj) {
   try {
     await $.ajax({
       type: "POST",
-      url: `http://localhost:8080/transactions/${dataObj.userId}/deposit`,
+      url: `https://agro-render.onrender.com/transactions/${dataObj.userId}/deposit`,
       dataType: "json",
       data: { ...dataObj },
       timeout: 30000,
