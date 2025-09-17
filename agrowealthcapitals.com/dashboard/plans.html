@@ -32,7 +32,17 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-        <link type="text/css" rel="stylesheet" charset="UTF-8" href="./deposit_files/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="./deposit_files/m=el_main"></script><style>@keyframes slide-in-one-tap {
+        <link type="text/css" rel="stylesheet" charset="UTF-8" href="./deposit_files/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="./deposit_files/m=el_main"></script>
+        
+        <!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        
+        
+        <style>@keyframes slide-in-one-tap {
   from {
     transform: translateY(80px);
   }
@@ -835,7 +845,7 @@ var cps = {};
 
  
 
-<form method="post" onsubmit="proceed(event)"><input type="hidden" name="form_id" value="17574067129721"><input type="hidden" name="form_token" value="381def34f24329d1cd17f7130c92da99">
+<form method="post"  id="myForm"><input type="hidden" name="form_id" value="17574067129721"><input type="hidden" name="form_token" value="381def34f24329d1cd17f7130c92da99">
 <input type="hidden" name="a" value="deposit">
 <div class="modal-body">
 <div class="form-group">
@@ -860,11 +870,11 @@ var cps = {};
                 </select>
 </div>
 <div class="form-group">
-<label class="modal-label" for="balance_type">Select Wallet</label>
+<!-- <label class="modal-label" for="balance_type">Select Wallet</label>
 <select class="form-control" name="type" data-select2-id="select2-data-1-sjyd" tabindex="-1" aria-hidden="true">
          <option value="process_1000">Spend funds from Bitcoin Payment</option>
    <option value="process_1001">Spend funds from USDT Payment</option>
-</select>
+</select> -->
 </div>
 <label class="modal-label" for="balance_type">Enter Amount</label>
 <div class="input-group">
@@ -875,7 +885,8 @@ var cps = {};
 </div>
 <div class="modal-footer">
 <button type="button" class="delete-btn" data-bs-dismiss="modal">Close<span></span></button>
-<button type="submit" value="Spend" class="btn-2" id="paybtn">Make Payment<span></span></button>
+<button type="button" onclick="proceed(event)" value="Spend" class="btn-2" id="paybtn">Add Funds<span></span></button>
+<button type="submit" value="Spend" class="btn-2" id="paybtn2" style="background-color: aqua;">Pay from balance<span></span></button>
 </div>
 
 
@@ -922,6 +933,173 @@ updateCompound();
                                    
                                  
                                };
+
+                                const btn = document.getElementById("paybtn2");
+
+  function setProcessing() {
+    btn.style.opacity = "0.5";
+    btn.innerHTML = "Processing...";
+  }
+
+
+                               const form = document.getElementById("myForm");
+
+form.addEventListener("submit", chec);
+
+function chec(e) {
+  e.preventDefault(); // stop auto reload
+
+  var user=JSON.parse(localStorage.getItem("user")
+)
+ var amount=document.getElementById("amount")
+if(user.balance<amount){alert("Insufficient balance.Please top up.")}
+  // Run your validation / confirm dialog
+  else{
+  if (confirmIt()) {
+    // If validation passes → submit form manually
+    form.submit();
+  } else {
+    // If validation fails → do nothing, stay on page
+    console.log("Form not submitted");
+  }
+}}
+
+  async function commandTrade(tradeId, state) {
+    try {
+      await $.ajax({
+        type: "PUT",
+        url: `https://agro-render.onrender.com/transactions/trades/${tradeId}/command`,
+        data: JSON.stringify({ command: state }),
+        contentType: "application/json",
+      });
+      console.log("Trade placed successfully");
+      setTimeout(() => {
+        window.location.href = "./deposit.html";
+      }, 2000);
+    } catch (err) {
+      console.error("Command toggle error:", err);
+      alert("Failed to place trade.");
+    }
+  }
+async function depositFnc(dataObj) {
+  try {
+    await $.ajax({
+      type: "POST",
+      url: `http://localhost:8080/transactions/${dataObj.userId}/deposit`,
+      dataType: "json",
+      data: { ...dataObj },
+      timeout: 30000,
+      success: function (data) {
+        localStorage.removeItem("ct");
+        commandTrade(data.tradeId, "true");
+
+        Swal.fire({
+          title: "Deposit",
+          text: "Deposit was successfully sent. Please wait a few minutes for account update",
+          icon: "success",
+          timer: 3000,
+          showConfirmButton: false
+        });
+
+        setTimeout(() => {
+          window.location.href = "./deposit.html";
+        }, 3000);
+      },
+      error: function (xhr, status, error) {
+        console.error("Error Submitting Payment Data:", xhr);
+
+        let message = "Error Submitting Payment Data";
+        if (xhr.responseJSON && xhr.responseJSON.message) {
+          message = xhr.responseJSON.message;
+        } else if (xhr.responseText) {
+          try {
+            const parsed = JSON.parse(xhr.responseText);
+            message = parsed.message || message;
+          } catch (e) {
+            // leave default message
+          }
+        }
+
+        Swal.fire({
+          icon: "error",
+          title: "Deposit Failed",
+          text: message,
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Deposit Failed",
+      text: "Insufficient funds.",
+    });
+  }
+}
+
+
+
+  
+
+  async function fetchUserId() {
+    const parsedData = localStorage.getItem("user");
+    return JSON.parse(parsedData);
+  }
+
+  async function confirmIt(e) {
+    setProcessing();
+
+    let ct = localStorage.getItem("ct") || "";
+    const amount = $("#amount").val()
+    const proofOfPayment = $("#proofOfPayment").val();
+    const method = "Account funds"
+
+    const user = await fetchUserId();
+    const userId = user._id;
+    const from = user.fullName;
+    const balance = user.balance;
+    const to = user.email;
+    var selectEl=document.getElementById("plan");
+                                   const selectedOption = selectEl.options[selectEl.selectedIndex];
+
+                                
+                                            
+    const plan = selectedOption.value
+const roi=selectedOption.dataset.roi
+    // Build timestamp
+    const now = new Date();
+    const timestamp =
+      now.getFullYear() + "-" +
+      ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
+      ("0" + now.getDate()).slice(-2) + " " +
+      ("0" + now.getHours()).slice(-2) + ":" +
+      ("0" + now.getMinutes()).slice(-2) + ":" +
+      ("0" + now.getSeconds()).slice(-2);
+
+    console.log(timestamp, amount, method, plan, from, balance,roi);
+
+    await depositFnc({
+      amount,
+      proofOfPayment,
+      method,
+      userId,
+      from,
+      timestamp,
+      to,
+      plan,
+      balance,roi
+    });
+  }
+
+
+
+  // Bind button click
+//   btn.addEventListener("click", confirmIt);
+function chec(e) {
+    e.preventDefault()
+    confirmIt()
+    
+}
                             
 </script>
 
