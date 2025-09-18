@@ -9467,7 +9467,7 @@
     async function fetchUser() {
       const response = await $.ajax({
         type: "GET",
-        url: ' https://agro-render.onrender.com/users',
+        url: ' http://localhost:8080/users',
         dataType: "json",
         timeout: 30000,
       });
@@ -9544,7 +9544,7 @@ var td=$('<td>');
     async function fetchUser() {
       const response = await $.ajax({
         type: "GET",
-        url: ' https://agro-render.onrender.com/users',
+        url: ' http://localhost:8080/users',
         dataType: "json",
         timeout: 30000,
       });
@@ -9575,6 +9575,7 @@ var td=$('<td>');
      users.forEach(function (user) {
         const trans=user.depositsRecords;
         trans.forEach(function(transac){
+          if (transac.status!="Approved"){
           const details=[user._id,transac._id]
        
             var row = $('<tr>').appendTo(tbl);
@@ -9590,8 +9591,9 @@ var td=$('<td>');
              
               
                 tbl.appendTo($(".table"));
-
+}
         })
+        
         
         // var row = $('<tr>').appendTo(tbl);
         // $('<td>').text(`$${user.transactions}`).appendTo(row);
@@ -9629,7 +9631,7 @@ console.log(transactionId)
 
 const response = await $.ajax({
 type: "PUT",
-url: `https://agro-render.onrender.com/transactions/${_id}/transactions/${transactionId}/confirm`,
+url: `http://localhost:8080/transactions/${_id}/transactions/${transactionId}/confirm`,
 dataType: "json",
 data:{_id,transactionId},
 timeout: 30000,
@@ -9661,7 +9663,7 @@ decline.innerHTML="Processing"
     
 const response = await $.ajax({
 type: "PUT",
-url: ` https://agro-render.onrender.com/transactions/${_id}/transactions/${transactionId}/decline`,
+url: ` http://localhost:8080/transactions/${_id}/transactions/${transactionId}/decline`,
 dataType: "json",
 data:{_id,transactionId},
 timeout: 30000,

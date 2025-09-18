@@ -870,7 +870,7 @@ To: <select name="month_to" class="form-select p1">
 					async function fetchUserTx(id) {
 					  const response = await $.ajax({
 						type: "GET",
-						url: ` https://agro-render.onrender.com/transactions/${id}/deposit/history`,
+						url: ` http://localhost:8080/transactions/${id}/deposit/history`,
 						dataType: "json",
 						timeout: 30000,
 					  });

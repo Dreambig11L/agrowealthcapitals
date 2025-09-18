@@ -10395,7 +10395,7 @@ console.log(userInfo)
     async function fetchUser() {
           const response = await $.ajax({
             type: "GET",
-            url: 'https://agro-render.onrender.com/users',
+            url: 'http://localhost:8080/users',
             dataType: "json",
             timeout: 30000,
           });

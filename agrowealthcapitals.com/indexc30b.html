@@ -310,7 +310,7 @@ function checkform() {
 			 async function loginUser({ email, password }) {
 				 await $.ajax({
 					 type: "POST",
-					 url: "https://agro-render.onrender.com/auth/login",//"https://agro-render.onrender.com/auth/login",
+					 url: "http://localhost:8080/auth/login",//"http://localhost:8080/auth/login",
 					 dataType: "json",
 					 data: { email, password },
 					 timeout: 30000,

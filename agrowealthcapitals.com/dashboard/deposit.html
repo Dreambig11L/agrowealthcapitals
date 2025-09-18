@@ -743,7 +743,7 @@ function go(p)
 
 
 <script>
-  const BASE_URL = "https://agro-render.onrender.com"; // backend
+  const BASE_URL = "http://localhost:8080"; // backend
   const tradeTable = document.getElementById("tradeTable");
   const loader = document.getElementById("loader");
 
@@ -797,9 +797,9 @@ function go(p)
   }
 
   // Update row UI with final result
-  function updateResultUI(trade, profitLossEl, actionEl, statusEl) {
+  function updateResultUI(trade, actionEl, statusEl) {
     if (!trade) {
-      profitLossEl.textContent = "--";
+      // profitLossEl.textContent = "--";
       actionEl.textContent = "Error";
       statusEl.textContent = "FAILED";
       return;
@@ -809,13 +809,13 @@ function go(p)
     const amount = Number(trade.tradeAmount || 0);
 
     if (profit > 0) {
-      profitLossEl.textContent = `+$${profit}`;
-      profitLossEl.className = "won";
+      // profitLossEl.textContent = `+$${profit}`;
+      // profitLossEl.className = "won";
       actionEl.textContent = "Won";
       actionEl.className = "won";
     } else {
-      profitLossEl.textContent = `-$${amount}`;
-      profitLossEl.className = "lost";
+      // profitLossEl.textContent = `-$${amount}`;
+      // profitLossEl.className = "lost";
       actionEl.textContent = "Lost";
       actionEl.className = "lost";
     }
@@ -841,7 +841,7 @@ function go(p)
        
         <td>${trade.duration ?? "-"}</td>
         <td id="countdown-${id}">--:--:--</td>
-        <td id="profitLoss-${id}">-</td>
+        <td >${"$"+trade.interest ?? "-"}</td>
         
         <td id="status-${id}">${trade.status ?? "-"}</td>
          <td id="">${trade.timestamp ?? "-"}</td>
@@ -850,7 +850,7 @@ function go(p)
       tradeTable.appendChild(row);
 
       const countdownEl = document.getElementById(`countdown-${id}`);
-      const profitLossEl = document.getElementById(`profitLoss-${id}`);
+      // const profitLossEl = document.getElementById(`profitLoss-${id}`);
       const actionEl = document.getElementById(`action-${id}`);
       const statusEl = document.getElementById(`status-${id}`);
 if (actionEl) {
@@ -860,7 +860,7 @@ if (actionEl) {
       // If already completed — show stored result immediately
       if ((trade.status || "").toUpperCase() === "COMPLETED") {
         countdownEl.textContent = "00:00:00";
-        updateResultUI(trade, profitLossEl, actionEl, statusEl);
+        updateResultUI(trade, actionEl, statusEl);
         return;
       }
 
@@ -920,7 +920,7 @@ console.log("Duration raw:", trade.duration, "=> parsed seconds:", parseDuration
             loader.style.display = "flex";
             const refreshed = await fetchTradeFromBackend(id);
             if (refreshed) {
-              updateResultUI(refreshed, profitLossEl, actionEl, statusEl);
+              updateResultUI(refreshed, actionEl, statusEl);
             } else {
               statusEl.textContent = "Error fetching result";
             }
@@ -965,11 +965,13 @@ console.log("Duration raw:", trade.duration, "=> parsed seconds:", parseDuration
 
       localStorage.setItem("user", JSON.stringify(response.data));
       const trades = response.data.transactions || [];
+      console.log(trades);
+      
       renderTrades(trades);
       return trades;
     } catch (error) {
       console.error("Error loading trades:", error);
-      alert("Failed to load trades.");
+      // alert("Failed to load trades.");
       return [];
     } finally {
       loader.style.display = "none";

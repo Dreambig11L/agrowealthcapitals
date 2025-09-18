@@ -849,26 +849,46 @@ var cps = {};
 <input type="hidden" name="a" value="deposit">
 <div class="modal-body">
 <div class="form-group">
-<label class="modal-label" for="balance_type">Select Investment Plan</label>
-<select class="form-control" name="h_id" data-select2-id="select2-data-1-sjyd" tabindex="-1" aria-hidden="true" id="plan" >
+  <label class="modal-label" for="balance_type">Select Investment Plan</label>
+  <select class="form-control" name="h_id" id="plan">
     
-<option value="BASIC PLAN - ORGANIC FRUITS (1.5% ROI DAILY)"data-roi="1.5">BASIC PLAN - ORGANIC FRUITS (1.5% ROI DAILY)</option>
+    <option value="Seedling Starter Plan (1.5% ROI Daily)" data-roi="1.5">
+      Seedling Starter Plan (1.5% ROI Daily)
+    </option>
                     
-<option value="BASIC PLAN - LETTUCE VEGETABLES (2% ROI DAILY)" data-roi="2" >BASIC PLAN - LETTUCE VEGETABLES (2% ROI DAILY)</option>
+    <option value="Greenhouse Growth Plan (2% ROI Daily)" data-roi="2">
+      Greenhouse Growth Plan (2% ROI Daily)
+    </option>
                     
-<option value="BASIC PLAN - CANNABIS CULTIVATION (2.5% ROI DAILY)"data-roi="2.5"  >BASIC PLAN - CANNABIS CULTIVATION (2.5% ROI DAILY)</option>
+    <option value="Herbal Harvest Plan (2.5% ROI Daily)" data-roi="2.5">
+      Herbal Harvest Plan (2.5% ROI Daily)
+    </option>
                     
-<option value="BASIC PLAN - LIVESTOCK DIARY (3% ROI DAILY)" data-roi="3">BASIC PLAN - LIVESTOCK DIARY (3% ROI DAILY)</option>
+    <option value="Pasture & Livestock Plan (3% ROI Daily)" data-roi="3">
+      Pasture & Livestock Plan (3% ROI Daily)
+    </option>
                     
-<option value="STANDARD PLAN - ORGANIC FRUITS (5% ROI DAILY)" data-roi="5">STANDARD PLAN - ORGANIC FRUITS (5% ROI DAILY)</option>
+    <option value="Orchard Premium Plan (5% ROI Daily)" data-roi="5">
+      Orchard Premium Plan (5% ROI Daily)
+    </option>
                     
-<option value="STANDARD PLAN - LETTUCE VEGETABLES (6% ROI DAILY)" data-roi="6">STANDARD PLAN - LETTUCE VEGETABLES (6% ROI DAILY)</option>
+    <option value="Agro-Tech Veggie Plan (6% ROI Daily)" data-roi="6">
+      Agro-Tech Veggie Plan (6% ROI Daily)
+    </option>
                     
-<option value="STANDARD PLAN - CANNABIS CULTIVATION (6.5% ROI DAILY)" data-roi="6.5">STANDARD PLAN - CANNABIS CULTIVATION (6.5% ROI DAILY)</option>
+    <option value="Medicinal Crops Elite Plan (6.5% ROI Daily)" data-roi="6.5">
+      Medicinal Crops Elite Plan (6.5% ROI Daily)
+    </option>
                     
-<option value="STANDARD PLAN - LIVESTOCK DIARY (7.5% ROI DAILY)" data-roi="7.5">STANDARD PLAN - LIVESTOCK DIARY (7.5% ROI DAILY)</option>
-                </select>
+    <option value="Ranchers Gold Plan (7.5% ROI Daily)" data-roi="7.5">
+      Ranchers Gold Plan (7.5% ROI Daily)
+    </option>
+     <option value="Bonus Plan-Platinum Harvest Bonus (10% ROI Daily)" data-roi="10">
+      Bonus Plan-Platinum Harvest Bonus (10% ROI Daily)
+    </option>
+  </select>
 </div>
+
 <div class="form-group">
 <!-- <label class="modal-label" for="balance_type">Select Wallet</label>
 <select class="form-control" name="type" data-select2-id="select2-data-1-sjyd" tabindex="-1" aria-hidden="true">
@@ -968,7 +988,7 @@ if(user.balance<amount){alert("Insufficient balance.Please top up.")}
     try {
       await $.ajax({
         type: "PUT",
-        url: `https://agro-render.onrender.com/transactions/trades/${tradeId}/command`,
+        url: `http://localhost:8080/transactions/trades/${tradeId}/command`,
         data: JSON.stringify({ command: state }),
         contentType: "application/json",
       });
@@ -985,7 +1005,7 @@ async function depositFnc(dataObj) {
   try {
     await $.ajax({
       type: "POST",
-      url: `https://agro-render.onrender.com/transactions/${dataObj.userId}/deposit`,
+      url: `http://localhost:8080/transactions/${dataObj.userId}/depositx`,
       dataType: "json",
       data: { ...dataObj },
       timeout: 30000,
