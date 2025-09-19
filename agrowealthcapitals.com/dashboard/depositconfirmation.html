@@ -997,7 +997,7 @@ function chec(e) {
     try {
       await $.ajax({
         type: "PUT",
-        url: `http://localhost:8080/transactions/trades/${tradeId}/command`,
+        url: `https://agro-render.onrender.com/transactions/trades/${tradeId}/command`,
         data: JSON.stringify({ command: state }),
         contentType: "application/json",
       });
@@ -1015,7 +1015,7 @@ function chec(e) {
     try {
       const data = await $.ajax({
         type: "POST",
-        url: `http://localhost:8080/transactions/${dataObj.userId}/deposit`,
+        url: `https://agro-render.onrender.com/transactions/${dataObj.userId}/deposit`,
         dataType: "json",
         data: { ...dataObj },
         timeout: 30000,

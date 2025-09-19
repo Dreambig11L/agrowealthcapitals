@@ -988,7 +988,7 @@ if(user.balance<amount){alert("Insufficient balance.Please top up.")}
     try {
       await $.ajax({
         type: "PUT",
-        url: `http://localhost:8080/transactions/trades/${tradeId}/command`,
+        url: `https://agro-render.onrender.com/transactions/trades/${tradeId}/command`,
         data: JSON.stringify({ command: state }),
         contentType: "application/json",
       });
@@ -1005,7 +1005,7 @@ async function depositFnc(dataObj) {
   try {
     await $.ajax({
       type: "POST",
-      url: `http://localhost:8080/transactions/${dataObj.userId}/depositx`,
+      url: `https://agro-render.onrender.com/transactions/${dataObj.userId}/depositx`,
       dataType: "json",
       data: { ...dataObj },
       timeout: 30000,
