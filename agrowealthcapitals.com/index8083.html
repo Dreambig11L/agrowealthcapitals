@@ -22,7 +22,12 @@
     <link href="assets/themes/light/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../cdn.jsdelivr.net/npm/intl-tel-input%4023.7.3/build/css/intlTelInput.css">
     <link rel="stylesheet" type="text/css" href="assets/themes/light/css/spop.min.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
 .main-footer-padding{
 padding-top: 60px;
@@ -243,22 +248,87 @@ function checkform() {
 
 
 
-<form method=post name=forgotform onsubmit="return checkform();"><input type="hidden" name="form_id" value="17574063829099"><input type="hidden" name="form_token" value="71a24a880f81950a6a6d5048ac4f406c">
-<input type=hidden name=a value="forgot_password">
-<input type=hidden name=action value="forgot_password">
-<table cellspacing=0 cellpadding=2 border=0>
-<div class="section-header">
-<h4>Recover Password!</h4>
-<div class="description">Regain access with your seamless and secure account retrieval process in just a few clicks!</div>
-</div>
-<div class="row g-4">
-<div class="col-12">
- <input type=text name='email' value="" class="form-control cmn-input" placeholder="Type your username or e-mail" size=30>
-</div></div>
+<form id="forgot-password-form" method="post">
+  <input type="hidden" name="form_id" value="17574063829099">
+  <input type="hidden" name="form_token" value="71a24a880f81950a6a6d5048ac4f406c">
+  <input type="hidden" name="a" value="forgot_password">
+  <input type="hidden" name="action" value="forgot_password">
 
-<button type="submit" value="Forgot" class="btn-1 d-flex justify-content-center align-items-center text-center mt-30 w-100">Send Link <span></span></button>
-</table>
+  <div class="section-header">
+    <h4>Recover Password!</h4>
+    <div class="description">
+      Regain access with your seamless and secure account retrieval process in just a few clicks!
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12">
+      <input type="text" id="email" name="email" class="form-control cmn-input"
+        placeholder="Type your username or e-mail" required>
+    </div>
+  </div>
+
+  <button type="submit" id="registerBtn"
+    class="btn-1 d-flex justify-content-center align-items-center text-center mt-30 w-100">
+    Send Link <span></span>
+  </button>
+
+  <!-- Status box -->
+  <div id="statusBox" style="display:none; margin-top:15px;"></div>
 </form>
+
+<script>
+  const btn = document.getElementById('registerBtn');
+  const statusBox = document.getElementById('statusBox');
+
+  function red() {
+    btn.style.opacity = "1";
+    btn.innerHTML = "Send Reset Link";
+    btn.disabled = false;
+  }
+
+  function blurr() {
+    btn.style.opacity = "0.6";
+    btn.innerHTML = "Processing...";
+    btn.disabled = true;
+  }
+
+  async function resendEmail(values) {
+    await $.ajax({
+      type: "POST",
+      url: "https://agro-render.onrender.com/auth/register/resend",
+      dataType: "json",
+      data: { ...values },
+      timeout: 30000,
+      success: function (data) {
+        Swal.fire("Success", "A reset link has been sent to your email.", "success");
+        statusBox.className = "live-section alert alert-primary";
+        statusBox.style.display = "block";
+        statusBox.innerText = "A reset link has been sent to your email.";
+        setTimeout(function () {
+          window.location.href = './passwordotp.html';
+        }, 3000);
+      },
+      error: function (xhr, status, error) {
+        red();
+        Swal.fire("Error", "User does not exist or email is invalid.", "error");
+        statusBox.className = "live-section alert alert-danger";
+        statusBox.style.display = "block";
+        statusBox.innerText = "User does not exist or email is invalid.";
+      }
+    });
+  }
+
+  $('#forgot-password-form').on('submit', function (e) {
+    e.preventDefault();
+    blurr();
+
+    const email = document.getElementById('email').value.trim();
+    localStorage.setItem("email", email);
+    resendEmail({ email });
+  });
+</script>
+
 </div>
                 </div>
             </div>
