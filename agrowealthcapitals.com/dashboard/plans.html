@@ -930,6 +930,25 @@ var cps = {};
 
 
 </form>
+<script>
+  // When user clicks on any "Invest" link
+  document.querySelectorAll(".investNow").forEach(btn => {
+    btn.addEventListener("click", function () {
+      // get the plan text
+      const planText = this.closest("tr").querySelector("td[data-label='Plan'] a").innerText.trim();
+
+      // find matching <option> in the select
+      const planSelect = document.getElementById("plan");
+      for (let option of planSelect.options) {
+        if (planText.includes(option.value)) {
+          option.selected = true;
+          break;
+        }
+      }
+    });
+  });
+</script>
+
 
 <script language="javascript">
 /*
@@ -958,6 +977,9 @@ updateCompound();
                                             localStorage.setItem('depositing',depositing)
                                             localStorage.setItem('plan',selectedOption.value)
                                             localStorage.setItem('roi',selectedOption.dataset.roi)
+
+                                            console.log(selectedOption.value+selectedOption.dataset.roi);
+                                            
                                 if(Number(limit)>Number(depositing))
                                 {
         
